@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>使用Dock搭建Sentry服务 | Hexo</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content>
+    
+    <meta name="description" content="搭建环境 CentOS 7.5 64 位 docker: 18.09.6 docker-compose: 1.24.0 sentry: sentry 9.1-onbuild  搭建步骤 安装 docker、docker-compose、git  执行 systemctl start docker 启动 docker。 1$ systemctl start docker  ⚡️: 可执行 syste">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Dock搭建Sentry服务">
+<meta property="og:url" content="http://yoursite.com/2019/09/12/使用Dock搭建Sentry服务/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="搭建环境 CentOS 7.5 64 位 docker: 18.09.6 docker-compose: 1.24.0 sentry: sentry 9.1-onbuild  搭建步骤 安装 docker、docker-compose、git  执行 systemctl start docker 启动 docker。 1$ systemctl start docker  ⚡️: 可执行 syste">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://yoursite.com/2019/09/12/使用Dock搭建Sentry服务/1.png">
+<meta property="og:updated_time" content="2019-09-12T10:06:02.797Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用Dock搭建Sentry服务">
+<meta name="twitter:description" content="搭建环境 CentOS 7.5 64 位 docker: 18.09.6 docker-compose: 1.24.0 sentry: sentry 9.1-onbuild  搭建步骤 安装 docker、docker-compose、git  执行 systemctl start docker 启动 docker。 1$ systemctl start docker  ⚡️: 可执行 syste">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/12/使用Dock搭建Sentry服务/1.png">
+    
+
+    
+        <link rel="alternate" href="/" title="Hexo" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/blog/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/blog/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/blog/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/blog/css/style.css">
+
+    <script src="/blog/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/blog/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/blog/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/blog/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/blog/">Home</a>
+                                </li>
+                            
+                                        
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/blog/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/blog/',
+        CONTENT_URL: '/blog/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/blog/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    uncategorized
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-使用Dock搭建Sentry服务" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        使用Dock搭建Sentry服务
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/blog/2019/09/12/使用Dock搭建Sentry服务/" class="article-date">
+            <time datetime="2019-09-12T08:55:21.000Z" itemprop="datePublished">2019-09-12</time>
+        </a>
+    </div>
+
+		
+
+                
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h2 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h2><ul>
+<li>CentOS 7.5 64 位</li>
+<li>docker: 18.09.6</li>
+<li>docker-compose: 1.24.0</li>
+<li>sentry: <a href="https://hub.docker.com/_/sentry" target="_blank" rel="noopener">sentry 9.1-onbuild</a></li>
+</ul>
+<h2 id="搭建步骤"><a href="#搭建步骤" class="headerlink" title="搭建步骤"></a>搭建步骤</h2><ol>
+<li><p>安装 <code>docker</code>、<code>docker-compose</code>、<code>git</code></p>
+</li>
+<li><p>执行 <code>systemctl start docker</code> 启动 docker。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ systemctl start docker</span><br></pre></td></tr></table></figure>
+
+<p>⚡️: <strong>可执行 <code>systemctl enable docker</code> 将启动 docker 加入开机自启</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ systemctl <span class="built_in">enable</span> docker</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>克隆 <code>sentry</code>到本地。<code>git clone https://github.com/getsentry/onpremise.git</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/getsentry/onpremise.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行 <code>cd onpremise</code> 进入 onpremise 文件夹。</p>
+</li>
+<li><p>执行 <code>docker volume create --name=sentry-data &amp;&amp; docker volume create --name=sentry-postgres</code></p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker <span class="keyword">volume</span><span class="bash"> create --name=sentry-data &amp;&amp; docker volume create --name=sentry-postgres</span></span><br></pre></td></tr></table></figure>
+
+<p>⚡️: <strong>使用 <code>docker volume</code> 必须手动创建本地数据库和 sentry 卷。</strong></p>
+</li>
+<li><p>执行 <code>cp -n .env.example .env</code> 创建 <code>.env</code> 文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cp -n .env.example .env</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行 <code>docker-compose build</code> 构建并标记 <code>docker</code> 服务。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker-compose build</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行 <code>docker-compose run --rm web config generate-secret-key</code> - 生成密钥。将它添加到 <code>.env</code> 作为 <code>SENTRY_SECRET_KEY</code>的值，还要将其添加到 <code>docker-compose.yml</code>中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker-compose run --rm web config generate-secret-key</span><br></pre></td></tr></table></figure>
+
+<p><img src="1.png" alt=".env"></p>
+<p><img src="2.png" alt="docker-compose.yml"></p>
+</li>
+<li><p>执行 <code>docker-compose run --rm web upgrade</code> - 构建数据库。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker-compose run --rm web upgrade</span><br></pre></td></tr></table></figure>
+
+<p>⚡️: <strong>官方文档 说这里会 使用交互式提示创建用户帐户 。在实际操作中却没有提示。::如果没有提示需要执行第 10 步::。</strong></p>
+</li>
+<li><p>执行 <code>docker exec -it onpremise_postgres_1 bash</code> 进入 docker 容器 执行 <strong>postgres bash</strong> 命令查看是否有数据。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker <span class="built_in">exec</span> -it onpremise_postgres_1 bash</span><br></pre></td></tr></table></figure>
+
+<p><img src="3.png" alt="postgres bash"></p>
+<ol>
+<li>执行 <code>psql -h 127.0.0.1 -d postgres -U postgres</code> 进入 postgres 数据库</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ psql -h 127.0.0.1 -d postgres -U postgres</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>执行 <code>select * from sentry_project;</code> 查看 sentry_project 表是否有数据。</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">select</span> * <span class="keyword">from</span> sentry_project;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>执行 <code>select * from sentry_organization;</code> 查看 sentry_organization 表是否有数据。</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">select</span> * <span class="keyword">from</span> sentry_organization;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>执行 <code>ctrl + d</code> 退出 shell。</li>
+</ol>
+</li>
+<li><p>如果没有数据需要添加， 执行 <code>docker-compose run --rm web shell</code> 进入 sentry 的 web 的 shell 里面。初始化数据</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker-compose run --rm web shell</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>执行 <code>from sentry.models import Project</code>。</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ from sentry.models import Project</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>执行 <code>from sentry.receivers.core import create_default_projects</code>。</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ from sentry.receivers.core import create_default_projects</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>执行 <code>create_default_projects([Project])</code>。</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ create_default_projects([Project])</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>执行 <code>ctrl + d</code> 退出。</li>
+</ol>
+<p><img src="4.png" alt="创建项目"></p>
+</li>
+<li><p>执行 <code>docker-compose run --rm web createuser</code> 创建用户。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose run --rm web createuser</span><br></pre></td></tr></table></figure>
+
+<p><img src="5.png" alt="创建用户"></p>
+</li>
+<li><p>执行 <code>docker-compose up -d</code> - 构建启动容器。</p>
+</li>
+<li><p>在浏览器中输入 <code>[ip]:9000</code>。如果没有错误，就应该能看到了。</p>
+</li>
+</ol>
+<h2 id="安装碰到的问题"><a href="#安装碰到的问题" class="headerlink" title="安装碰到的问题"></a>安装碰到的问题</h2><ul>
+<li><p>💥 在执行 <code>docker-compose run --rm web upgrade</code> 的时候。可能会出现没有执行完就退出了终端。</p>
+<p><img src="6.png" alt="没有执行完成"></p>
+<p>🔨 解决方案: 需要重新执行上面的命令</p>
+<p><img src="7.png" alt="正常执行完成"></p>
+</li>
+<li><p>💥 登录到项目后点击 Create a sample event 测试时， 会发现是失败的，而且这个时候在项目中产生的错误不会在这个 Issues 列表中展示。</p>
+<p><img src="8.png" alt="点击测试无效"></p>
+<p>🔨 解决方案:</p>
+<p>参考：<a href="https://forum.sentry.io/t/waiting-for-events-our-error-robot-is-waiting-to-devour-receive-your-first-event/4355" target="_blank" rel="noopener">Waiting for events… Our error robot is waiting to devour receive your first event - #sentry</a></p>
+<ol>
+<li>执行 <code>docker exec -it onpremise_postgres_1 bash</code> 进入 docker 容器 执行 <strong>postgres bash</strong> 命令查看是否有数据。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker <span class="built_in">exec</span> -it onpremise_postgres_1 bash</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>执行 <code>psql -h 127.0.0.1 -d postgres -U postgres</code> 进入 postgres 数据库</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ psql -h 127.0.0.1 -d postgres -U postgres</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>执行下面 SQL 语句后。在浏览器中点击 Create a sample event 就好了，也正常记录 Issue 了。</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">or</span> <span class="keyword">replace</span> <span class="keyword">function</span> sentry_increment_project_counter( <span class="keyword">project</span> <span class="built_in">bigint</span>, delta <span class="built_in">int</span>) <span class="keyword">returns</span> <span class="built_in">int</span> <span class="keyword">as</span> $$ <span class="keyword">declare</span> new_val <span class="built_in">int</span>;</span><br><span class="line"><span class="keyword">begin</span> <span class="keyword">loop</span> <span class="keyword">update</span> sentry_projectcounter <span class="keyword">set</span> <span class="keyword">value</span> = <span class="keyword">value</span> + delta <span class="keyword">where</span> project_id = <span class="keyword">project</span> <span class="keyword">returning</span> <span class="keyword">value</span> <span class="keyword">into</span> new_val;</span><br><span class="line">if found then return new_val;</span><br><span class="line"><span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line"><span class="keyword">begin</span> <span class="keyword">insert</span> <span class="keyword">into</span> sentry_projectcounter(project_id, <span class="keyword">value</span>) <span class="keyword">values</span> (<span class="keyword">project</span>, delta) <span class="keyword">returning</span> <span class="keyword">value</span> <span class="keyword">into</span> new_val;</span><br><span class="line">return new_val;</span><br><span class="line">exception when unique_violation then <span class="keyword">end</span>;</span><br><span class="line"><span class="keyword">end</span> <span class="keyword">loop</span>;</span><br><span class="line"><span class="keyword">end</span> $$ <span class="keyword">language</span> plpgsql;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://yoursite.com/2019/09/12/使用Dock搭建Sentry服务/" data-id="ck0gj35ya0001hs3n4647hbxq" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "John Doe"
+        },
+        "headline": "使用Dock搭建Sentry服务",
+        "image": "http://yoursite.com1.png",
+        "keywords": "",
+        "genre": "",
+        "datePublished": "2019-09-12",
+        "dateCreated": "2019-09-12",
+        "dateModified": "2019-09-12",
+        "url": "http://yoursite.com/2019/09/12/使用Dock搭建Sentry服务/",
+        "description": "搭建环境
+CentOS 7.5 64 位
+docker: 18.09.6
+docker-compose: 1.24.0
+sentry: sentry 9.1-onbuild
+
+搭建步骤
+安装 docker、docker-compose、git
+
+执行 systemctl start docker 启动 docker。
+1$ systemctl start docker
+
+⚡️: 可执行 syste",
+        "wordCount": 595
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="/blog/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/blog/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="google-plus" href="/blog/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-google-plus"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/ppoffice/hexo-theme-hueman" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/blog/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/blog/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/blog/2019/09/12/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Hello World</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/blog/2019/09/12/使用Dock搭建Sentry服务/" class="thumbnail">
+    
+    
+        <span style="background-image:url(1.png)" alt="使用Dock搭建Sentry服务" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/blog/2019/09/12/使用Dock搭建Sentry服务/" class="title">使用Dock搭建Sentry服务</a></p>
+                            <p class="item-date"><time datetime="2019-09-12T08:55:21.000Z" itemprop="datePublished">2019-09-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/blog/2019/09/12/hello-world/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/blog/2019/09/12/hello-world/" class="title">Hello World</a></p>
+                            <p class="item-date"><time datetime="2019-09-12T06:55:45.928Z" itemprop="datePublished">2019-09-12</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/09/">September 2019</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/blog/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 John Doe</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://yoursite.com/2019/09/12/使用Dock搭建Sentry服务/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/blog/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/blog/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/blog/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/blog/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/blog/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/blog/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/blog/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/blog/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/blog/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/blog/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/blog/js/main.js"></script>
+
+    </div>
+</body>
+</html>
