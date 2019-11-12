@@ -1,7 +1,7 @@
 ---
 title: 使用Dock搭建Sentry服务
 date: 2019-09-12 16:55:21
-tags:
+tags: [服务监控, docker]
 thumbnail: https://myzhoulang.github.io/blog/2019/09/12/%E4%BD%BF%E7%94%A8Dock%E6%90%AD%E5%BB%BASentry%E6%9C%8D%E5%8A%A1/sentry.jpeg
 ---
 
@@ -41,7 +41,7 @@ thumbnail: https://myzhoulang.github.io/blog/2019/09/12/%E4%BD%BF%E7%94%A8Dock%E
    $ docker volume create --name=sentry-data && docker volume create --name=sentry-postgres
    ```
 
-   ⚡️: **使用 `docker volume` 必须手动创建本地数据库和 sentry 卷。**
+   ⚡️: **使用 `docker volume` 创建本地数据库和 sentry 卷。**
 
 6. 执行 `cp -n .env.example .env` 创建 `.env` 文件。
 
