@@ -2,7 +2,8 @@
 title: Dockerfile指令
 date: 2019-11-12 15:29:28
 tags: Docker
-thumbnail:
+author: 周浪
+thumbnail: https://github.com/myzhoulang/blog/blob/master/2019/11/12/Centos%207.6%E4%B8%8B%E5%AE%89%E8%A3%85Docker%E5%92%8C%E5%90%AF%E5%8A%A8%E9%85%8D%E7%BD%AE/docker.jpg?raw=true
 ---
 
 Dockerfile 由一行行命令语句组成，注释以 `#`开头。Dockerfile 分为 4 部分：基础镜像，维护者信息，镜像操作指令，容器启动时执行的指令。每执行一个指令，都会创建一个镜像层并对镜像进行提交。导致构建的镜像臃肿。
