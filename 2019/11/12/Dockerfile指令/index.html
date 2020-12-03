@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>Dockerfile指令 | zhoulang</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="Docker">
+    
+    <meta name="description" content="Dockerfile 由一行行命令语句组成，注释以 #开头。Dockerfile 分为 4 部分：基础镜像，维护者信息，镜像操作指令，容器启动时执行的指令。每执行一个指令，都会创建一个镜像层并对镜像进行提交。导致构建的镜像臃肿。 指令 FROM  FROM 是需要基于基础的镜像。FROM是必须的并且必须是第一条指令。推荐使用官方的镜像。 格式 123# 没有`tag`默认是`latest`。FRO">
+<meta name="keywords" content="Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dockerfile指令">
+<meta property="og:url" content="http://yoursite.com/2019/11/12/Dockerfile指令/index.html">
+<meta property="og:site_name" content="zhoulang">
+<meta property="og:description" content="Dockerfile 由一行行命令语句组成，注释以 #开头。Dockerfile 分为 4 部分：基础镜像，维护者信息，镜像操作指令，容器启动时执行的指令。每执行一个指令，都会创建一个镜像层并对镜像进行提交。导致构建的镜像臃肿。 指令 FROM  FROM 是需要基于基础的镜像。FROM是必须的并且必须是第一条指令。推荐使用官方的镜像。 格式 123# 没有`tag`默认是`latest`。FRO">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-12-03T06:55:23.451Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dockerfile指令">
+<meta name="twitter:description" content="Dockerfile 由一行行命令语句组成，注释以 #开头。Dockerfile 分为 4 部分：基础镜像，维护者信息，镜像操作指令，容器启动时执行的指令。每执行一个指令，都会创建一个镜像层并对镜像进行提交。导致构建的镜像臃肿。 指令 FROM  FROM 是需要基于基础的镜像。FROM是必须的并且必须是第一条指令。推荐使用官方的镜像。 格式 123# 没有`tag`默认是`latest`。FRO">
+    
+
+    
+        <link rel="alternate" href="/" title="zhoulang" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/blog/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/blog/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/blog/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/blog/css/style.css">
+
+    <script src="/blog/libs/jquery/3.5.0/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/blog/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/blog/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/blog/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/blog/">主页</a>
+                                </li>
+                            
+                                    
+                                
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/blog/about/index.html">关于</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/blog/',
+        CONTENT_URL: '/blog/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/blog/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    未分类
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-Dockerfile指令" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Dockerfile指令
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/blog/2019/11/12/Dockerfile指令/" class="article-date">
+       <time datetime="2019-11-12T07:29:28.000Z" itemprop="datePublished">2019-11-12</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/blog/2019/11/12/Dockerfile指令/" class="article-date">
+     <time datetime="2020-12-03T06:55:23.451Z" itemprop="dateModified">2020-12-03</time>
+  </a>
+</div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/blog/tags/Docker/">Docker</a>
+    </div>
+
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <p>Dockerfile 由一行行命令语句组成，注释以 <code>#</code>开头。Dockerfile 分为 4 部分：基础镜像，维护者信息，镜像操作指令，容器启动时执行的指令。每执行一个指令，都会创建一个镜像层并对镜像进行提交。导致构建的镜像臃肿。</p>
+<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><ul>
+<li>FROM</li>
+</ul>
+<p><code>FROM</code> 是需要基于基础的镜像。<code>FROM</code>是必须的并且必须是第一条指令。推荐使用官方的镜像。</p>
+<p>格式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 没有`tag`默认是`latest`。</span></span><br><span class="line">FROM &lt;image&gt;</span><br><span class="line">FROM &lt;image&gt;:&lt;tag&gt;</span><br></pre></td></tr></table></figure>
+
+<p>案例</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FROM ubuntu:18.04</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>RUN</li>
+</ul>
+<p><code>RUN</code>是用来执行命令行命令的。<code>RUN</code>指令有两种格式。由于每一次执行都会添加一个层，为了减少层，可以使用一个 <code>RUN</code> 执行多个命令。多个命令之间使用<code>&amp;&amp;</code>分割。为了可读性，可以将每一个命令换行，每一行后面加上换行符（\）即可。有时候构建需要一些额外的资源，这些资源并不会被删除，会一直跟着镜像。导致镜像很大。为减少镜像大小，可在最后删除掉这些无关的文件，只保留正在需要的东西。</p>
+<p>格式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RUN wget -O - https://some.site | wc -l &gt; /number</span><br><span class="line">RUN [<span class="string">"可执行文件"</span>, <span class="string">"参数1"</span>, <span class="string">"参数2"</span>]</span><br></pre></td></tr></table></figure>
+
+<p>案例</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RUN mkdir -p app &amp;&amp; apt-get update &amp;&amp; npm install</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>CMD</li>
+</ul>
+<p><code>CMD</code>指令用于指定容器启动时需要运行的命令。</p>
+<p>格式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CMD [<span class="string">"可执行文件"</span>, <span class="string">"参数1"</span>, <span class="string">"参数2"</span>]</span><br></pre></td></tr></table></figure>
+
+<p>案例</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CMD [<span class="string">'npm'</span>, <span class="string">'app'</span>]</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：使用<code>docker run</code>命令可以覆盖 <code>CMD</code> 指令 ，假设<code>Dockerfile</code> 中的 <code>CMD</code>为<code>CMD [&quot;npm&quot;, &#39;app&#39;]</code>, 当执行 <code>docker run -it app /bin/bash</code>的时候，并不会执行 <code>npm app</code> 而是执行 <code>/bin/bash</code></strong>。</p>
+<ul>
+<li>EXPOSE</li>
+</ul>
+<p><code>EXPOSE</code>指令告诉 Docker 该容器内的应用程序将会使用容器的指定端口。可以使用多个<code>EXPOSE</code>指令向外部公开多个端口。</p>
+<p>格式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPOSE &lt;port&gt;</span><br></pre></td></tr></table></figure>
+
+<p>案例</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPOSE 3000</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>ENV</li>
+</ul>
+<p><code>ENV</code>指令用来在镜像构建过程中设置环境变量。这些环境变量也会被持久保存到创建的容器中。<br>可以通过<code>docker run -e &quot;NODE_ENV=test&quot;</code>传递环境变量。</p>
+<p>格式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ENV &lt;key&gt; &lt;value&gt;</span><br></pre></td></tr></table></figure>
+
+<p>案例</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ENV NODE_ENV <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>ADD</li>
+</ul>
+<p><code>ADD</code>指令与<code>COPY</code>格式和性质基本一致。<code>ADD</code>的源路径可以是一个<code>URL</code>。尽可能使用 <code>copy</code>。<br>只有当 <code>COPY</code>达不到要求的时候才使用。类如源路径是远程的链接地址。</p>
+<ul>
+<li>COPY</li>
+</ul>
+<p><code>COPY</code>指令将从构建上下文目录中的文件复制到新的一层镜像内的位置。<br>格式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">COPY &lt;原路径&gt; &lt;目标路径&gt;</span><br></pre></td></tr></table></figure>
+
+<p>案例</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">COPY package*.json /app/</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>ENTRYPOINT</li>
+</ul>
+<p><code>ENTRYPOINT</code>指令和<code>COPY</code>类似。区别在于<code>ENTRYPOINT</code>不会在容器启动时被覆盖。<code>docker run</code>命令行中指定的参数都会被当做参数传递给 <code>ENTRYPOINT</code>。</p>
+<ul>
+<li>VOLUME</li>
+</ul>
+<p><code>VOLUME</code>指令用来创建一个可以从本地或其他容器挂载的挂载点，用于数据持久化。</p>
+<p>格式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">VOLUME [主机目录]</span><br></pre></td></tr></table></figure>
+
+<p>案例</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">VOLUME [<span class="string">'/data'</span>, <span class="string">'/logs'</span>]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>USER</li>
+</ul>
+<p><code>USER</code>指令指定镜像会以什么样的用户去运行。可以通过<code>docker run -u nginx</code>覆盖该指令。不指定将会以<code>root</code>用户运行。</p>
+<p>格式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">USER &lt;用户&gt;</span><br></pre></td></tr></table></figure>
+
+<p>案例</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">USER nginx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>WORKDIR</li>
+</ul>
+<p><code>WORKDIR</code>指令是在从该镜像创建容器时。在容器内部创建一个工作目录，<code>ENTRYPOINT</code>和<code>CMD</code> 指定的程序会在这个目录下执行。在<code>docker run</code>时候可以使用<code>-w</code>覆盖工作录。<code>WORKDIR</code>指令可以为 <code>Dockerfile</code>中其他指令设置工作目录。</p>
+<p>格式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WORKDIR &lt;path&gt;</span><br></pre></td></tr></table></figure>
+
+<p>案例</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WORKDIR /usr/src/api</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>ONBUILD</li>
+</ul>
+<p><code>ONBUILD</code>指令式当以当前镜像为基础镜像，去构建下一级镜像的时候被执行。</p>
+<p>格式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ONBUILD &lt;其他指令&gt;</span><br></pre></td></tr></table></figure>
+
+<p>案例</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ONBUILD COPY ./package.json /app</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>MANITAINER<br><code>MANITAINER</code>指令指定该镜像的作者信息。姓名和联系方式</li>
+</ul>
+<p>格式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MANITAINER &lt;姓名&gt; &lt;联系方式&gt;</span><br></pre></td></tr></table></figure>
+
+<p>案例</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MANITAINER James <span class="string">"james@example.com"</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>LABEL</li>
+</ul>
+<p><code>LABEL</code>指令用于为该镜像添加一些元数据，元数据以键值对的形式展示。</p>
+<p>格式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LABEL &lt;key=value&gt; &lt;key1=value1&gt;...</span><br></pre></td></tr></table></figure>
+
+<p>案例</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LABEL location=<span class="string">"New Youk"</span> <span class="built_in">type</span>=<span class="string">"Data Center"</span></span><br></pre></td></tr></table></figure>
+
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://yoursite.com/2019/11/12/Dockerfile指令/" data-id="cki8nb7ek0001neuynjs7at8b" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "zhoulang"
+        },
+        "headline": "Dockerfile指令",
+        "image": "http://yoursite.com",
+        "keywords": "Docker",
+        "genre": "",
+        "datePublished": "2019-11-12",
+        "dateCreated": "2019-11-12",
+        "dateModified": "2020-12-03",
+        "url": "http://yoursite.com/2019/11/12/Dockerfile指令/",
+        "description": "Dockerfile 由一行行命令语句组成，注释以 #开头。Dockerfile 分为 4 部分：基础镜像，维护者信息，镜像操作指令，容器启动时执行的指令。每执行一个指令，都会创建一个镜像层并对镜像进行提交。导致构建的镜像臃肿。
+指令
+FROM
+
+FROM 是需要基于基础的镜像。FROM是必须的并且必须是第一条指令。推荐使用官方的镜像。
+格式
+123# 没有`tag`默认是`latest`。FRO",
+        "wordCount": 273
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>关注我 :</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="/blog/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/blog/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="stack-overflow" href="/blog/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-stack-overflow"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/myzhoulang" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/blog/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/blog/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/blog/2019/11/12/mongodb查询/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">下一篇</strong>
+        <p class="article-nav-title">
+        
+            mongodb查询
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/blog/2019/11/12/Centos 7.6下安装Docker和启动配置/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">centos 7.6 下安装Docker和启动配置</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/blog/2019/11/12/mongodb查询/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/blog/2019/11/12/mongodb查询/" class="title">mongodb查询</a></p>
+                            <p class="item-date"><time datetime="2019-11-12T07:42:57.000Z" itemprop="datePublished">2019-11-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/blog/2019/11/12/Dockerfile指令/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/blog/2019/11/12/Dockerfile指令/" class="title">Dockerfile指令</a></p>
+                            <p class="item-date"><time datetime="2019-11-12T07:29:28.000Z" itemprop="datePublished">2019-11-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/blog/2019/11/12/Centos 7.6下安装Docker和启动配置/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2019/11/12/Centos 7.6下安装Docker和启动配置/docker.jpg)" alt="centos 7.6 下安装Docker和启动配置" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/blog/2019/11/12/Centos 7.6下安装Docker和启动配置/" class="title">centos 7.6 下安装Docker和启动配置</a></p>
+                            <p class="item-date"><time datetime="2019-11-12T07:26:35.000Z" itemprop="datePublished">2019-11-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/blog/2019/09/17/TypeScript基础类型-md/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://myzhoulang.github.io/blog/2019/09/17/TypeScript%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B-md/ts.jpg)" alt="TypeScript基础类型.md" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/blog/2019/09/17/TypeScript基础类型-md/" class="title">TypeScript基础类型.md</a></p>
+                            <p class="item-date"><time datetime="2019-09-17T06:26:25.000Z" itemprop="datePublished">2019-09-17</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/blog/2019/09/12/使用Dock搭建Sentry服务/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://myzhoulang.github.io/blog/2019/09/12/%E4%BD%BF%E7%94%A8Dock%E6%90%AD%E5%BB%BASentry%E6%9C%8D%E5%8A%A1/sentry.jpeg)" alt="使用Dock搭建Sentry服务" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/blog/2019/09/12/使用Dock搭建Sentry服务/" class="title">使用Dock搭建Sentry服务</a></p>
+                            <p class="item-date"><time datetime="2019-09-12T08:55:21.000Z" itemprop="datePublished">2019-09-12</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">十一月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/09/">九月 2019</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Docker/">Docker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Mongodb/">Mongodb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/TypeScript/">TypeScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/docker/">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/前端/">前端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/服务监控/">服务监控</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/blog/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/blog/tags/Mongodb/" style="font-size: 10px;">Mongodb</a> <a href="/blog/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/blog/tags/docker/" style="font-size: 10px;">docker</a> <a href="/blog/tags/前端/" style="font-size: 10px;">前端</a> <a href="/blog/tags/服务监控/" style="font-size: 10px;">服务监控</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/blog/" class="logo"></a>
+                </h1>
+                <p>&copy; 2020 zhoulang</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://yoursite.com/2019/11/12/Dockerfile指令/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        <script src="/blog/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/blog/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/blog/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/blog/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/blog/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/blog/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/blog/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/blog/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/blog/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/blog/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/blog/js/main.js"></script>
+
+</body>
+</html>

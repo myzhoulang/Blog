@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>mongodb查询 | zhoulang</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="Mongodb">
+    
+    <meta name="description" content="find find 简介  Mongodb 使用find进行查询。find有两个参数，第一个参数是指定查询条件。默认是 {}。 12// 不指定任何条件，查询所有db.collections.find();   指定返回的值  find的第二个参数是指定需要返回哪些字段，这样避免将所有的字段返回，可以节省传输的数据量，也可以节省客户端解码文档的时间和内存消耗。指定字段的值 1 为包含， 0 为排除">
+<meta name="keywords" content="Mongodb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mongodb查询">
+<meta property="og:url" content="http://yoursite.com/2019/11/12/mongodb查询/index.html">
+<meta property="og:site_name" content="zhoulang">
+<meta property="og:description" content="find find 简介  Mongodb 使用find进行查询。find有两个参数，第一个参数是指定查询条件。默认是 {}。 12// 不指定任何条件，查询所有db.collections.find();   指定返回的值  find的第二个参数是指定需要返回哪些字段，这样避免将所有的字段返回，可以节省传输的数据量，也可以节省客户端解码文档的时间和内存消耗。指定字段的值 1 为包含， 0 为排除">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-12-03T06:55:23.451Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mongodb查询">
+<meta name="twitter:description" content="find find 简介  Mongodb 使用find进行查询。find有两个参数，第一个参数是指定查询条件。默认是 {}。 12// 不指定任何条件，查询所有db.collections.find();   指定返回的值  find的第二个参数是指定需要返回哪些字段，这样避免将所有的字段返回，可以节省传输的数据量，也可以节省客户端解码文档的时间和内存消耗。指定字段的值 1 为包含， 0 为排除">
+    
+
+    
+        <link rel="alternate" href="/" title="zhoulang" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/blog/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/blog/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/blog/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/blog/css/style.css">
+
+    <script src="/blog/libs/jquery/3.5.0/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/blog/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/blog/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/blog/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/blog/">主页</a>
+                                </li>
+                            
+                                    
+                                
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/blog/about/index.html">关于</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/blog/',
+        CONTENT_URL: '/blog/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/blog/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    未分类
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-mongodb查询" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        mongodb查询
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/blog/2019/11/12/mongodb查询/" class="article-date">
+       <time datetime="2019-11-12T07:42:57.000Z" itemprop="datePublished">2019-11-12</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/blog/2019/11/12/mongodb查询/" class="article-date">
+     <time datetime="2020-12-03T06:55:23.451Z" itemprop="dateModified">2020-12-03</time>
+  </a>
+</div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/blog/tags/Mongodb/">Mongodb</a>
+    </div>
+
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><ul>
+<li>find 简介</li>
+</ul>
+<p>Mongodb 使用<code>find</code>进行查询。<code>find</code>有两个参数，第一个参数是指定查询条件。默认是 <code>{}</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 不指定任何条件，查询所有</span></span><br><span class="line">db.collections.find();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>指定返回的值</li>
+</ul>
+<p><code>find</code>的第二个参数是指定需要返回哪些字段，这样避免将所有的字段返回，可以节省传输的数据量，也可以节省客户端解码文档的时间和内存消耗。指定字段的值 1 为包含， 0 为排除。<br><strong>默认情况下 <code>_id</code>是总是会返回的，只有当设置为 0 才不会返回。</strong><br><strong>指定的字段中不能同时又包含和排除。</strong></p>
+<p>格式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.collection.find(&lt;查询条件&gt;, &lt;需要返回的字段&gt;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回的文档中只包含 `name` 、`email`和`_id`。</span></span><br><span class="line">db.users.find(&#123; <span class="attr">name</span>: <span class="string">"A"</span> &#125;, &#123; <span class="attr">name</span>: <span class="number">1</span>, <span class="attr">email</span>: <span class="number">1</span> &#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回文档中除 `name`字段外所有的字段。</span></span><br><span class="line">db.users.find(&#123; <span class="attr">name</span>: <span class="string">"A"</span> &#125;, &#123; <span class="attr">name</span>: <span class="number">0</span> &#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 下面的查询出错**`Error`**</span></span><br><span class="line">db.users.find(&#123; <span class="attr">name</span>: <span class="string">"A"</span> &#125;, &#123; <span class="attr">name</span>: <span class="number">1</span>, <span class="attr">email</span>: <span class="number">0</span> &#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="查询条件"><a href="#查询条件" class="headerlink" title="查询条件"></a>查询条件</h2><ul>
+<li>查询条件</li>
+</ul>
+<p><code>$lt</code>、<code>$gt</code>、<code>$lte</code>、<code>$gte</code>是比较操作符，可以单独使用，也可以组合使用查询一个范围的值。可以比较<code>数字型</code>、<code>时间型</code>的值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 查询 18~30岁（含）的用户</span></span><br><span class="line">db.users.find(&#123; <span class="attr">age</span>: &#123; <span class="attr">$gte</span>: <span class="number">18</span>, <span class="attr">$lte</span>: <span class="number">30</span> &#125; &#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 查找2007年1月1日之前注册的用户。</span></span><br><span class="line">db.users.find(&#123; <span class="attr">registered</span>: &#123; <span class="attr">$lt</span>: <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">"01/01/2007"</span>) &#125; &#125;);</span><br></pre></td></tr></table></figure>
+
+<p><code>$ne</code>是不等操作符。当查询条件需要正则去匹配的时候，使用<code>$ne</code>会出错。正则类型的可以使用 <code>$not</code>操作符。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 查找 `name!=A` 的用户。</span></span><br><span class="line">db.users.find(&#123; <span class="attr">name</span>: &#123; <span class="attr">$ne</span>: <span class="string">"A"</span> &#125; &#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 下面查询`name`字段不以`A`开头的用户，报错了。</span></span><br><span class="line"><span class="comment">// Error `Can't have regex as arg to $ne.`</span></span><br><span class="line">db.users.find(&#123; <span class="attr">name</span>: &#123; <span class="attr">$ne</span>: <span class="regexp">/^A/</span> &#125; &#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>OR 查询</li>
+</ul>
+<p>有两种方式进行 OR 查询。一种是使用<code>$in</code>用来查询一个键的多个值，一种是使用<code>$or</code> 可以在多个键中查询任意给定的值。如果需要对<code>$in</code>的匹配条件后取反可以使用<code>$nin</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 查询 `status`字段的值是 `1`|`2`|`3`的用户</span></span><br><span class="line">db.users.find(&#123; <span class="attr">status</span>: &#123; <span class="attr">$in</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>] &#125; &#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 查询`status`字段的不是  `1`|`2`|`3`的用户</span></span><br><span class="line">db.users.find(&#123; <span class="attr">status</span>: &#123; <span class="attr">$nin</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>] &#125; &#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 查询 `status`字段是`1` 或者 `age`字段大于`18`的用户</span></span><br><span class="line">db.users.find(&#123; <span class="attr">$or</span>: [&#123; <span class="attr">status</span>: <span class="number">1</span> &#125;, &#123; <span class="attr">age</span>: &#123; <span class="attr">$gt</span>: <span class="number">18</span> &#125; &#125;] &#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>$not</li>
+</ul>
+<p><code>$not</code>操作符是匹配那些不符合条件的文档。相对<code>$ne</code> ，<code>$not</code>可以结合正则表达式一起使用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 查询`name`字段不是 A 的文档</span></span><br><span class="line">db.users.find(&#123; <span class="attr">name</span>: &#123; <span class="attr">$not</span>: <span class="string">"A"</span> &#125; &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查询`age`字段不小于1的文档</span></span><br><span class="line">db.users.find(&#123; <span class="attr">age</span>: &#123; <span class="attr">$not</span>: &#123; <span class="attr">$lt</span>: <span class="number">1</span> &#125; &#125; &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 结合正则表达式查询</span></span><br><span class="line"><span class="comment">// 查询 `name`字段不以字符串 a 开头的</span></span><br><span class="line">db.users.find(&#123; <span class="attr">name</span>: &#123; <span class="attr">$not</span>: <span class="regexp">/^a/i</span> &#125; &#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>条件语句</li>
+</ul>
+<p>查询操作符一般是内层文档的键。更新操作符则是外层文档的键。</p>
+<h2 id="特定类型查询"><a href="#特定类型查询" class="headerlink" title="特定类型查询"></a>特定类型查询</h2><ul>
+<li>null</li>
+</ul>
+<p><code>null</code>类型可以匹配自身，还会匹配那些没有这个键的文档。如果要排除掉没有这个键的文档 需要结合<code>$exists</code>这个操作符。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 下面这样会查询出 字段 x 为 null 和那些没有 x 字段的文档</span></span><br><span class="line">db.users.find(&#123; <span class="attr">x</span>: <span class="literal">null</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 下面只会查询出 字段 x 为 null</span></span><br><span class="line">db.users.find(&#123; <span class="attr">x</span>: &#123; <span class="attr">$in</span>: [<span class="literal">null</span>], <span class="attr">$exists</span>: <span class="literal">true</span> &#125; &#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>正则表达式</li>
+</ul>
+<blockquote>
+<p>正则表达式可以灵活有效的匹配字符串。像对一个字段的模糊查询，忽略大小写等待非常有用。正则表达式也可以匹配到自身，如果字段中的值就是一个正则表达式，也能正确匹配。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 查询字段 name 中包含 (a|A) 的文档</span></span><br><span class="line">db.users.find(&#123; <span class="attr">name</span>: <span class="regexp">/a/i</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查询字段 name 中包含 (a|A) 开头的文档</span></span><br><span class="line">db.users.find(&#123; <span class="attr">name</span>: <span class="regexp">/^a/i</span> &#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>查询数组</p>
+<ol>
+<li><p>单个元素匹配数组</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 假设 fruit 的值一个数组</span></span><br><span class="line"><span class="comment">// 下面的匹配会匹配到  fruit 数组中包含 apple 一项的文档</span></span><br><span class="line">db.foods.find(&#123; <span class="attr">fruit</span>: <span class="string">"apple"</span> &#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>多个元素匹配数组</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 假设 fruit 的值一个数组</span></span><br><span class="line"><span class="comment">// 下面的匹配会匹配到  fruit 数组中包含 apple 和 banana 的文档</span></span><br><span class="line">db.foods.find(&#123; <span class="attr">fruit</span>: &#123; <span class="attr">$all</span>: [<span class="string">"apple"</span>, <span class="string">"banana"</span>] &#125; &#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数组精确匹配</p>
+<p>数组的精确匹配必须 <strong>查询条件</strong> 和 <strong>文档中的值个数和顺序</strong>都必须保持一致。要查询数组中特定位置的元素，可加上数组下标进行查询。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 假设 fruit 的值一个数组</span></span><br><span class="line"><span class="comment">// 下面只会匹配字段 fruit 为 ["apple", "banana"]的文档</span></span><br><span class="line">db.foods.find(&#123; <span class="attr">fruit</span>: [<span class="string">"apple"</span>, <span class="string">"banana"</span>] &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 匹配数组中第一个元素的值</span></span><br><span class="line"><span class="comment">// 下面会匹配到 fruit 字段中第一个元素的值是 apple 的文档。</span></span><br><span class="line">db.foods.find(&#123; <span class="string">"fruit.0"</span>: <span class="string">"apple"</span> &#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+<ol start="4">
+<li><p><code>$size</code></p>
+<p><code>$size</code> 对查询字段数组长度很有效。像查询某个字段的数组值只有指定的个数的文档。<br><strong>注意</strong>： <code>$size</code> 不能与其他查询条件组合使用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 假设 fruit 的值一个数组</span></span><br><span class="line"><span class="comment">// 查询字段 fruit 的个数为 2 个的文档</span></span><br><span class="line">db.foods.find(&#123; <span class="attr">fruit</span>: &#123; <span class="attr">$size</span>: <span class="number">2</span> &#125; &#125;);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>5) <code>$slice</code></p>
+<p>   <code>$slice</code>操作符可以返回某个键匹配数组元素的一个子集。放在 <code>find</code>的第二个参数中。这个操作符不会影响文档其他键的返回。如果指定返回的键，需要显示声明。</p>
+   <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回某一个博客的前 10 条评论</span></span><br><span class="line">db.find(&#123; <span class="attr">_id</span>: ObjectId(x) &#125;, &#123; <span class="attr">comment</span>: &#123; <span class="attr">$slice</span>: <span class="number">10</span> &#125; &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回某一个博客的最后 10 条评论</span></span><br><span class="line">db.find(&#123; <span class="attr">_id</span>: ObjectId(x) &#125;, &#123; <span class="attr">comment</span>: &#123; <span class="attr">$slice</span>: <span class="number">-10</span> &#125; &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回某一个博客的中评论</span></span><br><span class="line"><span class="comment">// 跳过前 10 条评论后，取10条</span></span><br><span class="line">db.find(&#123; <span class="attr">_id</span>: ObjectId(x) &#125;, &#123; <span class="attr">comment</span>: &#123; <span class="attr">$slice</span>: [<span class="number">10</span>, <span class="number">10</span>] &#125; &#125;);</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li><p><code>$elemMatch</code></p>
+<p>对数组中每一个元素和传入的所有查询条件进行比较。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 假设 x 的值是一个数组</span></span><br><span class="line"><span class="comment">// 会对字段 x 进行循环，依次和 $elemMatch 中的条件进行匹配</span></span><br><span class="line"><span class="comment">// 只有元素 大于10 并且小于20 才会被命中</span></span><br><span class="line">db.tests.find(&#123; <span class="attr">x</span>: &#123; <span class="attr">$elemMatch</span>: &#123; <span class="attr">$gt</span>: <span class="number">10</span>, <span class="attr">$lt</span>: <span class="number">20</span> &#125; &#125; &#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>查询内嵌文档</li>
+</ul>
+<p>查询内嵌文档有两种方式： 1. 查询整个文档， 2.针对 key/value 进行查询。</p>
+<ol>
+<li><p>精确操作 和 数组的精确查找一样。 内嵌文档的 字段个数、字段顺序、字段名称都需要一致。</p>
+</li>
+<li><p>key/value 查找</p>
+<p>Key/value 查找使用点表示法。当两个查询条件使用了点表示法，他们的关系是 <code>or</code> 的关系。如果需要对两个条件使用 <code>and</code>关系，可以结合 <code>$elemMatch</code>操作符使用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 假设需要查询 有 Joe 发表的 5 分以上的评论</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 下面的查询是可能失败的，如果内嵌文档只有这两个字段的时候是OK，</span></span><br><span class="line"><span class="comment">// 如果内嵌文档中有额外的字段，就会失败。</span></span><br><span class="line"><span class="comment">// 下面的查询是精确匹配</span></span><br><span class="line">db.blogs.find(&#123; <span class="attr">comments</span>: &#123; <span class="attr">author</span>: <span class="string">"joe"</span>, <span class="attr">score</span>: &#123; <span class="attr">$gte</span>: <span class="number">5</span> &#125; &#125; &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 下面的查询会失败</span></span><br><span class="line"><span class="comment">// 下面的查询会匹配到 评论中 author=joe 或者 score &gt;= 5 的文档。</span></span><br><span class="line">db.blogs.find(&#123; <span class="string">"comments.author"</span>: <span class="string">"joe"</span>, <span class="string">"comments.score"</span>: &#123; <span class="attr">$gte</span>: <span class="number">5</span> &#125; &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可以使用 $elemMatch</span></span><br><span class="line">db.blogs.find(&#123;</span><br><span class="line">  comments: &#123; <span class="attr">$elemMatch</span>: &#123; <span class="attr">author</span>: <span class="string">"joe"</span>, <span class="attr">score</span>: &#123; <span class="attr">$gte</span>: <span class="number">5</span> &#125; &#125; &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="where-查询"><a href="#where-查询" class="headerlink" title="$where 查询"></a>$where 查询</h2><p><code>$where</code>可以在查询中指定任意的 <code>JavaScript</code>。为了安全和性能考虑，应尽可能避免使用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">db.foo.find(&#123;</span><br><span class="line">  $where: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 查询逻辑</span></span><br><span class="line">    <span class="comment">// 返回 true 文档就作为结果集的一部分返回，返回false 就不返回</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="游标"><a href="#游标" class="headerlink" title="游标"></a>游标</h2><ul>
+<li><code>limit</code>、<code>skip</code>、<code>sort</code></li>
+</ul>
+<p><code>limit</code>在<code>find</code>后使用来限制结果数量，<code>skip</code>和<code>limit</code>结合用于分页查询，指定跳过指定条数。<code>sort</code>用于排序，1 为升序，-1 位降序。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 下面的查询跳过前10条，选择10,以 age 升序排序。</span></span><br><span class="line">db.users</span><br><span class="line">  .find()</span><br><span class="line">  .skip(<span class="number">10</span>)</span><br><span class="line">  .limit(<span class="number">10</span>)</span><br><span class="line">  .sort(&#123; <span class="attr">age</span>: <span class="number">1</span> &#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://docs.mongodb.com/" target="_blank" rel="noopener">mongodb 官方文档</a></p>
+<p><a href="https://item.jd.com/11384782.html" target="_blank" rel="noopener">MongoDB 权威指南第二版书籍</a></p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://yoursite.com/2019/11/12/mongodb查询/" data-id="cki8nb7es0004neuygcxhitj3" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "zhoulang"
+        },
+        "headline": "mongodb查询",
+        "image": "http://yoursite.com",
+        "keywords": "Mongodb",
+        "genre": "",
+        "datePublished": "2019-11-12",
+        "dateCreated": "2019-11-12",
+        "dateModified": "2020-12-03",
+        "url": "http://yoursite.com/2019/11/12/mongodb查询/",
+        "description": "find
+find 简介
+
+Mongodb 使用find进行查询。find有两个参数，第一个参数是指定查询条件。默认是 {}。
+12// 不指定任何条件，查询所有db.collections.find();
+
+
+指定返回的值
+
+find的第二个参数是指定需要返回哪些字段，这样避免将所有的字段返回，可以节省传输的数据量，也可以节省客户端解码文档的时间和内存消耗。指定字段的值 1 为包含， 0 为排除",
+        "wordCount": 952
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>关注我 :</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="/blog/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/blog/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="stack-overflow" href="/blog/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-stack-overflow"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/myzhoulang" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/blog/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/blog/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/blog/2019/11/12/Dockerfile指令/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">Dockerfile指令</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/blog/2019/11/12/mongodb查询/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/blog/2019/11/12/mongodb查询/" class="title">mongodb查询</a></p>
+                            <p class="item-date"><time datetime="2019-11-12T07:42:57.000Z" itemprop="datePublished">2019-11-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/blog/2019/11/12/Dockerfile指令/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/blog/2019/11/12/Dockerfile指令/" class="title">Dockerfile指令</a></p>
+                            <p class="item-date"><time datetime="2019-11-12T07:29:28.000Z" itemprop="datePublished">2019-11-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/blog/2019/11/12/Centos 7.6下安装Docker和启动配置/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2019/11/12/Centos 7.6下安装Docker和启动配置/docker.jpg)" alt="centos 7.6 下安装Docker和启动配置" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/blog/2019/11/12/Centos 7.6下安装Docker和启动配置/" class="title">centos 7.6 下安装Docker和启动配置</a></p>
+                            <p class="item-date"><time datetime="2019-11-12T07:26:35.000Z" itemprop="datePublished">2019-11-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/blog/2019/09/17/TypeScript基础类型-md/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://myzhoulang.github.io/blog/2019/09/17/TypeScript%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B-md/ts.jpg)" alt="TypeScript基础类型.md" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/blog/2019/09/17/TypeScript基础类型-md/" class="title">TypeScript基础类型.md</a></p>
+                            <p class="item-date"><time datetime="2019-09-17T06:26:25.000Z" itemprop="datePublished">2019-09-17</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/blog/2019/09/12/使用Dock搭建Sentry服务/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://myzhoulang.github.io/blog/2019/09/12/%E4%BD%BF%E7%94%A8Dock%E6%90%AD%E5%BB%BASentry%E6%9C%8D%E5%8A%A1/sentry.jpeg)" alt="使用Dock搭建Sentry服务" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/blog/2019/09/12/使用Dock搭建Sentry服务/" class="title">使用Dock搭建Sentry服务</a></p>
+                            <p class="item-date"><time datetime="2019-09-12T08:55:21.000Z" itemprop="datePublished">2019-09-12</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">十一月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/09/">九月 2019</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Docker/">Docker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Mongodb/">Mongodb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/TypeScript/">TypeScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/docker/">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/前端/">前端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/服务监控/">服务监控</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/blog/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/blog/tags/Mongodb/" style="font-size: 10px;">Mongodb</a> <a href="/blog/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/blog/tags/docker/" style="font-size: 10px;">docker</a> <a href="/blog/tags/前端/" style="font-size: 10px;">前端</a> <a href="/blog/tags/服务监控/" style="font-size: 10px;">服务监控</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/blog/" class="logo"></a>
+                </h1>
+                <p>&copy; 2020 zhoulang</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://yoursite.com/2019/11/12/mongodb查询/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        <script src="/blog/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/blog/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/blog/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/blog/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/blog/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/blog/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/blog/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/blog/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/blog/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/blog/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/blog/js/main.js"></script>
+
+</body>
+</html>
